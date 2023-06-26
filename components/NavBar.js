@@ -176,7 +176,23 @@ useEffect(() => {
           maghribAthan={maghribAthan}
           ishaAthan={ishaAthan}
         />} />
-        <Tab.Screen name="Screen3" component={Screen3} options={{ title: '' }}/>
+        <Tab.Screen name="Screen3" options={{ title: '' }}
+        children={() => <Screen3
+          backgroundImage={backgroundImage} 
+          linearGradient={linearGradient} 
+          textColor={textColor} 
+          countDownColor={countDownColor} 
+          prayerColor={prayerColor} 
+          currentHijriDay={currentHijriDay}
+          currentHijriMonth={currentHijriMonth}
+          currentHijriYear={currentHijriYear}
+          currentDate={currentDate}
+          fajrAthan={fajrAthan}
+          dhurAthan={dhurAthan}
+          asrAthan={asrAthan}
+          maghribAthan={maghribAthan}
+          ishaAthan={ishaAthan}
+        />}/>
         <Tab.Screen name="Screen4" component={Screen4} options={{ title: '' }}/>
     </Tab.Navigator>
   )

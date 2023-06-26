@@ -1,8 +1,9 @@
-import { View, Text, StyleSheet, ImageBackground, Dimensions } from 'react-native'
+import { View, Text, StyleSheet, ImageBackground, Dimensions, Image, TouchableOpacity } from 'react-native'
 import React, { useEffect, useState,  } from 'react';
 import { LinearGradient } from "expo-linear-gradient";
 import PrayerCountdown from './PrayerCountDown';
 import moment from 'moment/moment';
+import * as WebBrowser from 'expo-web-browser';
 
 const window = Dimensions.get('window');
 const windowHeight = window.height;
@@ -122,6 +123,12 @@ const Screen1 = ({backgroundImage, linearGradient, textColor, countDownColor, pr
     var newFormatTime = hours + ":" + min + " " + AMPM;
     setShuruq(newFormatTime)
   }
+  const openBrowser = async () => {
+    // Replace 'https://example.com' with your desired link
+    await WebBrowser.openBrowserAsync('https://quran.com');
+  };
+
+  const quranLogo = require('../assets/quran.png');
 
   useEffect(() => {
     getDate()
@@ -144,10 +151,9 @@ const Screen1 = ({backgroundImage, linearGradient, textColor, countDownColor, pr
         <Text style={[styles.currentDate, {color: textColor}]}>{moment().format('dddd MMMM D YYYY')}</Text>
         <Text style={[styles.currentDate, {color: textColor}]}>{currentHijriMonth} {currentHijriDay} {currentHijriYear}</Text>
       </LinearGradient>
-      
+
     <View style={styles.background}>
-      
-    {/* <Clock /> */}
+
     <PrayerCountdown 
     fajrAthan={fajrAthan}
     dhurAthan={dhurAthan}
@@ -194,6 +200,11 @@ const Screen1 = ({backgroundImage, linearGradient, textColor, countDownColor, pr
       </View>
     </LinearGradient>
 
+
+      <TouchableOpacity style={styles.button} onPress={openBrowser}>
+          <Image source={quranLogo} style={styles.quranLogo}/>
+        </TouchableOpacity>
+
     </View>
 </ImageBackground>
   )
@@ -207,8 +218,7 @@ const styles = StyleSheet.create({
   date:{
     position: 'absolute',
     top: 70,
-    width: 200,
-    height: 60,
+    padding:5, 
     borderTopLeftRadius: 20,
     borderBottomLeftRadius: 20,
     right: 0,
@@ -271,6 +281,18 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 250,
     borderBottomRightRadius: 250,
     paddingRight: 70
+  },
+  button:{
+    position: 'absolute',
+    bottom: -200,
+    left: 55,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+  },
+  quranLogo:{
+    width: 100,
+    height: 100
   }
 });
 
