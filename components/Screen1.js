@@ -44,7 +44,7 @@ const Screen1 = ({backgroundImage, linearGradient, textColor, countDownColor, pr
      setCurrentHijriMonth(json.data.hijri.month.ar)
      setCurrentHijriYear(json.data.hijri.year)
    } catch (error) {
-     console.log(error)
+     // console.log(error)
    }
  }
 
@@ -59,7 +59,7 @@ const Screen1 = ({backgroundImage, linearGradient, textColor, countDownColor, pr
     setIshaAthan(convertTo12Hour(json.data.timings.Isha))
     convertTo12Hour2(json.data.timings.Sunrise)
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 }
 
@@ -72,14 +72,14 @@ const Screen1 = ({backgroundImage, linearGradient, textColor, countDownColor, pr
       setAsrPrayer(json.asr)
       setMaghribPrayer(json.maghrib)
       setIshaPrayer(json.isha)
-      console.log(json)
+      // console.log(json)
     }catch(e){
-      console.log(e)
+      // console.log(e)
     }
   }
 
   function convertTo12Hour(oldFormatTime) {
-    console.log("oldFormatTime: " + oldFormatTime);
+    // console.log("oldFormatTime: " + oldFormatTime);
     var oldFormatTimeArray = oldFormatTime.split(":");
 
     var HH = parseInt(oldFormatTimeArray[0]);

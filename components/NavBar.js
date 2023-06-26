@@ -12,20 +12,30 @@ const Tab = createBottomTabNavigator();
 const NavBar = () => {
   const [isMaghrib, setIsMaghrib] = useState(false);
   const [fajrAthan ,setFajrAthan] = useState()
+  const [dhurAthan, setDhurAthan] = useState()
+  const [asrAthan, setAsrAthan] = useState()
   const [maghribAthan, setMaghribAthan] = useState()
+  const [ishaAthan, setIshaAthan] = useState()
 
+  const [currentHijriDay, setCurrentHijriDay] = useState()
+  const [currentHijriMonth, setCurrentHijriMonth] = useState()
+  const [currentHijriYear, setCurrentHijriYear] = useState()
+  const [currentDate, setCurrentDate] = useState()
   const getAthan = async () => {
       try {
       const response = await fetch(`https://api.aladhan.com/v1/timingsByCity?city=Guelph&country=Canada&method=2`);
       const json = await response.json();
       setFajrAthan(convertTo12Hour(json.data.timings.Fajr))
+      setDhurAthan(convertTo12Hour(json.data.timings.Dhuhr))
+      setAsrAthan(convertTo12Hour(json.data.timings.Asr))
       setMaghribAthan(convertTo12Hour(json.data.timings.Maghrib))
+      setIshaAthan(convertTo12Hour(json.data.timings.Isha))
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   }
   function convertTo12Hour(oldFormatTime) {
-    console.log("oldFormatTime: " + oldFormatTime);
+    // console.log("oldFormatTime: " + oldFormatTime);
     var oldFormatTimeArray = oldFormatTime.split(":");
 
     var HH = parseInt(oldFormatTimeArray[0]);
@@ -48,8 +58,29 @@ const NavBar = () => {
     var newFormatTime = hours + ":" + min + " " + AMPM;
     return newFormatTime;
   }
+
+  const getDate = () => {
+    var today = new Date(),
+    date = (today.getMonth() + 1)  + '-' + today.getDate() + '-' + today.getFullYear();
+    setCurrentDate(date)
+  };
+  
+  const getHijriDate = async () => {
+    try {
+     const response = await fetch(`https://api.aladhan.com/v1/gToH?=${currentDate}`);
+     const json = await response.json();
+     setCurrentHijriDay(json.data.hijri.day)
+     setCurrentHijriMonth(json.data.hijri.month.ar)
+     setCurrentHijriYear(json.data.hijri.year)
+   } catch (error) {
+     // console.log(error)
+   }
+ }
+
   useEffect(() => {
     getAthan()
+    getDate()
+    getHijriDate()
 }, []);
 
 
@@ -135,6 +166,15 @@ useEffect(() => {
           textColor={textColor} 
           countDownColor={countDownColor} 
           prayerColor={prayerColor} 
+          currentHijriDay={currentHijriDay}
+          currentHijriMonth={currentHijriMonth}
+          currentHijriYear={currentHijriYear}
+          currentDate={currentDate}
+          fajrAthan={fajrAthan}
+          dhurAthan={dhurAthan}
+          asrAthan={asrAthan}
+          maghribAthan={maghribAthan}
+          ishaAthan={ishaAthan}
         />} />
         <Tab.Screen name="Screen3" component={Screen3} options={{ title: '' }}/>
         <Tab.Screen name="Screen4" component={Screen4} options={{ title: '' }}/>
