@@ -200,11 +200,6 @@ const Screen1 = ({backgroundImage, linearGradient, textColor, countDownColor, pr
       </View>
     </LinearGradient>
 
-
-      <TouchableOpacity style={styles.button} onPress={openBrowser}>
-          <Image source={quranLogo} style={styles.quranLogo}/>
-        </TouchableOpacity>
-
     </View>
 </ImageBackground>
   )

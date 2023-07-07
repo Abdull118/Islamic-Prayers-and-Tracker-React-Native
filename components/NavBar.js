@@ -6,6 +6,7 @@ import Screen2 from './Screen2';
 import Screen3 from './Screen3';
 import Screen4 from './Screen4';
 import { Ionicons } from '@expo/vector-icons';
+import QuranStackScreen from '../routes/QuranStack';
 
 const Tab = createBottomTabNavigator();
 
@@ -137,7 +138,7 @@ useEffect(() => {
           iconName = 'ios-home';
         } else if (route.name === 'Screen2') {
           iconName = 'ios-list';
-        } else if (route.name === 'Screen3') {
+        } else if (route.name === 'Quran') {
           iconName = 'ios-star';
         } else if (route.name === 'Screen4') {
           iconName = 'ios-settings';
@@ -176,23 +177,7 @@ useEffect(() => {
           maghribAthan={maghribAthan}
           ishaAthan={ishaAthan}
         />} />
-        <Tab.Screen name="Screen3" options={{ title: '' }}
-        children={() => <Screen3
-          backgroundImage={backgroundImage} 
-          linearGradient={linearGradient} 
-          textColor={textColor} 
-          countDownColor={countDownColor} 
-          prayerColor={prayerColor} 
-          currentHijriDay={currentHijriDay}
-          currentHijriMonth={currentHijriMonth}
-          currentHijriYear={currentHijriYear}
-          currentDate={currentDate}
-          fajrAthan={fajrAthan}
-          dhurAthan={dhurAthan}
-          asrAthan={asrAthan}
-          maghribAthan={maghribAthan}
-          ishaAthan={ishaAthan}
-        />}/>
+        <Tab.Screen name="Quran" component={QuranStackScreen} options={{ title: '' }}/>
         <Tab.Screen name="Screen4" component={Screen4} options={{ title: '' }}/>
     </Tab.Navigator>
   )
